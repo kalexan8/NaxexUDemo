@@ -1,0 +1,49 @@
+﻿@model NaxexUDemo.Models.Course
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Course</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CourceCapacity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CourceCapacity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberEnrolled)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberEnrolled)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Credits)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Credits)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CourseId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
