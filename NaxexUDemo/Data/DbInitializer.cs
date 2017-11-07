@@ -29,23 +29,7 @@ namespace NaxexUDemo.Data
                );
 
             await CreateDefaultUserAndRoleForApplication(userManager, roleManager, logger);
-            context.SaveChanges();
-            
-            //await roleManager.CreateAsync(new IdentityRole("Administrator"));
-            //await roleManager.CreateAsync(new IdentityRole("Student"));
-
-            //var administrator = new ApplicationUser { UserName = "Administrator", FirstName = "Xesus", LastName = "Krustev", Email = "admin@admin.com", EmailConfirmed = true, MaxCredits = 999 };
-            //var identityResult = await userManager.CreateAsync(administrator, "P@ssword1");
-            //if (identityResult.Succeeded)
-            //{
-            //    var use = await userManager.FindByEmailAsync(administrator.Email);
-            //    var user = context.Users.SingleOrDefault(u => u.UserName == administrator.UserName);
-            //    await userManager.AddToRoleAsync(user, "Administrator");
-            //}
-
-
-
-
+            context.SaveChanges();            
         }
 
 
@@ -54,23 +38,23 @@ namespace NaxexUDemo.Data
             const string administratorRole = "Administrator";
             const string email = "noreply@your-domain.com";
 
-            await CreateDefaultAdministratorRole(rm, logger, administratorRole);
-            var user = await CreateDefaultUser(um, logger, email);
-            await SetPasswordForDefaultUser(um, logger, email, user);
+            await CreateDefaultRole(rm, logger, administratorRole);
+            await CreateDefaultRole(rm, logger, "Student");
+            var user = await CreateDefaultUser(um, logger, email);           
             await AddDefaultRoleToDefaultUser(um, logger, email, administratorRole, user);
         }
 
-        private static async Task CreateDefaultAdministratorRole(RoleManager<IdentityRole> rm, ILogger<DbInitializer> logger, string administratorRole)
+        private static async Task CreateDefaultRole(RoleManager<IdentityRole> rm, ILogger<DbInitializer> logger, string role)
         {
-            logger.LogInformation($"Create the role `{administratorRole}` for application");
-            var ir = await rm.CreateAsync(new IdentityRole(administratorRole));
+            logger.LogInformation($"Create the role `{role}` for application");
+            var ir = await rm.CreateAsync(new IdentityRole(role));
             if (ir.Succeeded)
             {
-                logger.LogDebug($"Created the role `{administratorRole}` successfully");
+                logger.LogDebug($"Created the role `{role}` successfully");
             }
             else
             {
-                var exception = new ApplicationException($"Default role `{administratorRole}` cannot be created");
+                var exception = new ApplicationException($"Default role `{role}` cannot be created");
                 logger.LogError(exception, GetIdentiryErrorsInCommaSeperatedList(ir));
                 throw exception;
             }
@@ -93,9 +77,8 @@ namespace NaxexUDemo.Data
                 LockoutEnabled = false,
                  
             };
-            var password = new PasswordHasher<ApplicationUser>();
-            var hashed = password.HashPassword(user, "secret");
-            user.PasswordHash = hashed;
+            var passwordHasher = new PasswordHasher<ApplicationUser>();           
+            user.PasswordHash = passwordHasher.HashPassword(user, "password");
             var ir = await um.CreateAsync(user);
             if (ir.Succeeded)
             {
@@ -110,23 +93,6 @@ namespace NaxexUDemo.Data
 
             var createdUser = await um.FindByEmailAsync(email);
             return createdUser;
-        }
-
-        private static async Task SetPasswordForDefaultUser(UserManager<ApplicationUser> um, ILogger<DbInitializer> logger, string email, ApplicationUser user)
-        {
-            logger.LogInformation($"Set password for default user `{email}`");
-            const string password = "YourPassword01!";
-            var ir = await um.AddPasswordAsync(user, password);
-            if (ir.Succeeded)
-            {
-                logger.LogTrace($"Set password `{password}` for default user `{email}` successfully");
-            }
-            else
-            {
-                var exception = new ApplicationException($"Password for the user `{email}` cannot be set");
-                logger.LogError(exception, GetIdentiryErrorsInCommaSeperatedList(ir));
-                throw exception;
-            }
         }
 
         private static async Task AddDefaultRoleToDefaultUser(UserManager<ApplicationUser> um, ILogger<DbInitializer> logger, string email, string administratorRole, ApplicationUser user)
