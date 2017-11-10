@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using NaxexUDemo.Data;
 using NaxexUDemo.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace NaxexUDemo.Controllers
 {
@@ -15,12 +16,14 @@ namespace NaxexUDemo.Controllers
     public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ICourseRepository _courseRepository;
 
-        public CoursesController(ApplicationDbContext context, ICourseRepository courseRepository)
+        public CoursesController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, ICourseRepository courseRepository)
         {
             _courseRepository = courseRepository;
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Courses
@@ -150,6 +153,12 @@ namespace NaxexUDemo.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
+        [AllowAnonymous]
+        public IActionResult GetMyEnrollments()
+        {           
+            string userId = _userManager.GetUserId(User);
+            return ViewComponent("StudentEnrollments", new { studentId = _userManager.GetUserId(User) });
+        }
+
     }
 }

@@ -11,9 +11,10 @@ using System;
 namespace NaxexUDemo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171108224952_Enrollmentfix")]
+    partial class Enrollmentfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,6 +216,8 @@ namespace NaxexUDemo.Data.Migrations
                     b.Property<string>("ApplicationUserId");
 
                     b.Property<int>("CourseId");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("EnrollmentId");
 

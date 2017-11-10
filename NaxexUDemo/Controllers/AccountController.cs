@@ -222,7 +222,8 @@ namespace NaxexUDemo.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var roleAssignment = await _userManager.AddToRoleAsync(user, "Student");
+                if (result.Succeeded && roleAssignment.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 

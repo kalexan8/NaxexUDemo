@@ -1,0 +1,39 @@
+﻿ @model Course
+
+     
+            <tr>
+                <td>
+                    @if (User.IsInRole("Student"))
+                    {
+                        <button class="enrollInCourse" data-courseId="@Model.CourseId" onclick="EnrollInCourse(this,'@User.FindFirst(ClaimTypes.NameIdentifier)?.Value');"> Sign Up</button>
+                        <button class="dropCourse" style="visibility:hidden" data-courseId="@Model.CourseId" onclick="DropCourse(this,'@User.FindFirst(ClaimTypes.NameIdentifier)?.Value');"> Drop Course</button>
+                    }
+                </td>               
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.CourceCapacity)
+                </td>
+                <td class="numberEnrolled">
+                    @Html.DisplayFor(modelItem => Model.NumberEnrolled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Credits)
+                </td>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@Model.CourseId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@Model.CourseId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@Model.CourseId">Delete</a>
+                    </td>
+                }
+            </tr>      
+ 
+<script>
+
+</script>

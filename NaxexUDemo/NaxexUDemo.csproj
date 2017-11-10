@@ -3,7 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-NaxexUDemo-74B362A3-293B-4FCF-825A-DAAD9C7EE068</UserSecretsId>
+    <Configurations>Debug;Release;test</Configurations>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\NaxexU20171104104940 - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\NaxexUDemo - Web Deploy.pubxml" />
+  </ItemGroup>
 
 
   <ItemGroup>
@@ -16,6 +22,10 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>

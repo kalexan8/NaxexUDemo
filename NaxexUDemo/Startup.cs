@@ -34,8 +34,10 @@ namespace NaxexUDemo
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             services.AddTransient<ICourseRepository, CourseRepository>();
+           
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<EnrollmentService>();
 
             services.AddMvc();
         }

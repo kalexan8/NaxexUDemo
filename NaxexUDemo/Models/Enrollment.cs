@@ -9,7 +9,7 @@ namespace NaxexUDemo.Models
     {
         public int EnrollmentId { get; set; }
 
-        public int UserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
         public int CourseId { get; set; }
 
