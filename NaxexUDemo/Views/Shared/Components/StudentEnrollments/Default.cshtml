@@ -1,9 +1,22 @@
 ﻿@model IEnumerable<EnrollmentViewModel>
 
-<h3>My Classes</h3>
-<ul>
-    @foreach (var enrollment in Model)
-    {
-        <li>@enrollment.Title   "   " @enrollment.Credits "  "@enrollment.NumberEnrolled"/"@enrollment.CourceCapacity</li>
-    }
-</ul>
+<h3 class="">My Courses</h3>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-3">Title</th>
+            <th class="col-sm-1">Credits</th>
+            <th class="col-sm-1">Enrolled/Max</th>            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var enrollment in Model)
+{
+        <tr>
+            <td>@enrollment.Title</td>
+            <td>@enrollment.Credits</td>
+            <td>@enrollment.NumberEnrolled/@enrollment.CourceCapacity</td>            
+        </tr>
+}
+    </tbody> 
+</table>
