@@ -16,6 +16,8 @@ namespace NaxexUDemo.Models
 
         public string LastName { get; set; }
 
+        public int EnrolledCredits { get; set; }
+
         public int MaxCredits { get; set; }
 
         public ICollection<Enrollment> Enrollments { get; set; }

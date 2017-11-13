@@ -18,19 +18,33 @@ namespace NaxexUDemo.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ICourseRepository _courseRepository;
+        private readonly EnrollmentService _enrollmentService;
 
-        public CoursesController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, ICourseRepository courseRepository)
+        public CoursesController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, ICourseRepository courseRepository, EnrollmentService enrollmentService)
         {
             _courseRepository = courseRepository;
             _context = context;
             _userManager = userManager;
+            _enrollmentService = enrollmentService;
         }
 
         // GET: Courses
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _courseRepository.GetCourses());
+            var courses = await _courseRepository.GetCourses();
+            if (User.IsInRole("Student"))
+            {
+                var enrollments = _enrollmentService.GetUserEnrollments(User);
+                var result = from course in courses
+                             join enrollment in enrollments on course.CourseId equals enrollment.CourseId into enrolled
+                             from final in enrolled.DefaultIfEmpty()
+                             let isEnrolled = final == null ? false : true
+                             select new CourseViewModel(course) {StudentIsEnrolled = isEnrolled };
+                return View(result);
+
+            }
+            return View(courses.Select(x=>new CourseViewModel(x)));
         }
 
         // GET: Courses/Details/5
@@ -62,7 +76,7 @@ namespace NaxexUDemo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseId,Title,Description,CourceCapacity,NumberEnrolled,Credits")] Course course)
+        public async Task<IActionResult> Create([Bind("CourseId,Title,Description,CourseCapacity,NumberEnrolled,Credits")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -93,8 +107,8 @@ namespace NaxexUDemo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CourseId,Title,Description,CourceCapacity,NumberEnrolled,Credits")] Course course)
-        {            
+        public async Task<IActionResult> Edit(int id, [Bind("CourseId,Title,Description,CourseCapacity,NumberEnrolled,Credits")] Course course)
+        {
             if (id != course.CourseId)
             {
                 return NotFound();
@@ -103,7 +117,7 @@ namespace NaxexUDemo.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {                   
+                {
                     await _courseRepository.UpdateCourse(course);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -145,9 +159,9 @@ namespace NaxexUDemo.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var course = await _courseRepository.GetCourseById(id);
-            if (course!=null)
+            if (course != null)
             {
-               await _courseRepository.DeleteCourse(course);
+                await _courseRepository.DeleteCourse(course);
             }
 
             return RedirectToAction(nameof(Index));
@@ -155,7 +169,7 @@ namespace NaxexUDemo.Controllers
 
         [AllowAnonymous]
         public IActionResult GetMyEnrollments()
-        {           
+        {
             string userId = _userManager.GetUserId(User);
             return ViewComponent("StudentEnrollments", new { studentId = _userManager.GetUserId(User) });
         }

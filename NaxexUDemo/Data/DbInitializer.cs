@@ -19,12 +19,12 @@ namespace NaxexUDemo.Data
             }
             context.Courses.AddRange(
               new Course[] {
-                   new Course{ Title="PE", CourceCapacity=40, Credits=2, Description = "COurse Description"},
-                   new Course{ Title="Fundamentals of Software ENgineering", CourceCapacity=30, Credits=2, Description = "COirse Description"},
-                   new Course{ Title="Intro to C#", CourceCapacity=20, Credits=3, Description = "COirse Description"},
-                   new Course{ Title="Algorithm Design", CourceCapacity=10, Credits=4, Description = "COirse Description"},
-                   new Course{ Title="Semantic Web", CourceCapacity=30, Credits=4, Description = "Course Description"},
-                   new Course{ Title="Intro to OOP", CourceCapacity=30, Credits=2, Description = "Basic Concepts of OOP" }
+                   new Course{ Title="PE", CourseCapacity=40, Credits=2, Description = "COurse Description"},
+                   new Course{ Title="Fundamentals of Software ENgineering", CourseCapacity=30, Credits=2, Description = "COirse Description"},
+                   new Course{ Title="Intro to C#", CourseCapacity=20, Credits=3, Description = "COirse Description"},
+                   new Course{ Title="Algorithm Design", CourseCapacity=10, Credits=4, Description = "COirse Description"},
+                   new Course{ Title="Semantic Web", CourseCapacity=30, Credits=4, Description = "Course Description"},
+                   new Course{ Title="Intro to OOP", CourseCapacity=30, Credits=2, Description = "Basic Concepts of OOP" }
               }
                );
 

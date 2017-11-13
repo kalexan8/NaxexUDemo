@@ -1,39 +1,50 @@
-﻿ @model Course
+﻿@model CourseViewModel
 
-     
-            <tr>
-                <td>
-                    @if (User.IsInRole("Student"))
-                    {
-                        <button class="enrollInCourse" data-courseId="@Model.CourseId" onclick="EnrollInCourse(this,'@User.FindFirst(ClaimTypes.NameIdentifier)?.Value');"> Sign Up</button>
-                        <button class="dropCourse" style="visibility:hidden" data-courseId="@Model.CourseId" onclick="DropCourse(this,'@User.FindFirst(ClaimTypes.NameIdentifier)?.Value');"> Drop Course</button>
-                    }
-                </td>               
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.CourceCapacity)
-                </td>
-                <td class="numberEnrolled">
-                    @Html.DisplayFor(modelItem => Model.NumberEnrolled)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Credits)
-                </td>
-                @if (User.IsInRole("Administrator"))
-                {
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@Model.CourseId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@Model.CourseId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@Model.CourseId">Delete</a>
-                    </td>
-                }
-            </tr>      
+
+<tr class="row">
+    <td class="col-md-2">
+        @if (User.IsInRole("Student"))
+        {
  
+            @if (Model.StudentIsEnrolled)
+            {
+                <button class="enrollInCourse btn" style="visibility:hidden" data-courseId="@Model.CourseId" onclick="EnrollInCourse(this,'@User.FindFirst(ClaimTypes.NameIdentifier)?.Value');"> Sign Up</button>
+                <button class="dropCourse btn" data-courseId="@Model.CourseId" onclick="DropCourse(this,'@User.FindFirst(ClaimTypes.NameIdentifier)?.Value');"> Drop Course</button>
+               
+            }
+            else
+            {
+               
+                <button class="enrollInCourse btn" data-courseId="@Model.CourseId" onclick="EnrollInCourse(this,'@User.FindFirst(ClaimTypes.NameIdentifier)?.Value');"> Sign Up</button>
+                <button class="dropCourse btn" style="visibility:hidden" data-courseId="@Model.CourseId" onclick="DropCourse(this,'@User.FindFirst(ClaimTypes.NameIdentifier)?.Value');"> Drop Course</button>
+            }
+        
+         }
+         else if (User.IsInRole("Administrator"))
+         {
+            <a asp-action="Edit" asp-route-id="@Model.CourseId">Edit</a>  
+            <a asp-action="Details" asp-route-id="@Model.CourseId">Details</a>  
+            <a asp-action="Delete" asp-route-id="@Model.CourseId">Delete</a>
+       
+         }
+    </td>
+    <td class="col-md-4">
+        @Html.DisplayFor(modelItem => Model.Title)
+    </td>
+    <td class="col-md-4">
+        @Html.DisplayFor(modelItem => Model.Description)
+    </td>
+    <td class="col-md-1">
+        @Html.DisplayFor(modelItem => Model.Credits)
+    </td>
+    <td class="numberEnrolled col-md-1">
+        @Html.DisplayFor(modelItem => Model.NumberEnrolled)
+    </td>
+    <td class="col-md-1">
+        @Html.DisplayFor(modelItem => Model.CourseCapacity)
+    </td>   
+</tr>
+
 <script>
 
 </script>

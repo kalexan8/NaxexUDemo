@@ -41,7 +41,7 @@ namespace NaxexUDemo.Controllers
             try
             {
                _enrollmentService.EnrollInCourse(data.UserId, data.CourseId);
-                return new JsonResult("success");
+                return new  JsonResult("success");
             }
             catch (Exception)
             {

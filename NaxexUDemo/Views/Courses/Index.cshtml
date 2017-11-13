@@ -1,8 +1,8 @@
-﻿@model IEnumerable<NaxexUDemo.Models.Course>
+﻿@model IEnumerable<CourseViewModel>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Offered Courses";
+   // Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Course Listings</h2>
@@ -14,7 +14,7 @@
 }
 
 <div class="container-fluid">   
-    <div class="row">
+    <div >
         <div class="col-md-4">
              @if (User.IsInRole("Student"))
             {
@@ -26,8 +26,9 @@
         <div class="col-md-8">
             <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <th class="col-md-2">                    
+                    <tr class="row">
+                        <th class="col-md-2"> 
+                            &nbsp;
                         </th>
                         <th  class="col-md-4">
                             @Html.DisplayNameFor(model => model.Title)
@@ -36,20 +37,19 @@
                             @Html.DisplayNameFor(model => model.Description)
                         </th>
                         <th class="col-md-1">
-                            @Html.DisplayNameFor(model => model.CourceCapacity)
-                        </th>
+                            @Html.DisplayNameFor(model => model.Credits)
+                        </th>                         
                         <th class="col-md-1">
                             @Html.DisplayNameFor(model => model.NumberEnrolled)
                         </th>
                         <th class="col-md-1">
-                            @Html.DisplayNameFor(model => model.Credits)
-                        </th>                        
+                            @Html.DisplayNameFor(model => model.CourseCapacity)
+                        </th>                                         
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
-                     {
-                        
+                     {                        
                         @Html.Partial("CourseOverviewSummary", item);
                      }
                 </tbody>

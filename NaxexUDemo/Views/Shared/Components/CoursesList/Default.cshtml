@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Course>
+    <h2>Current Courses</h2>
+<table class="table table-hover table-responsive" style="margin: 50px 0px 75px 0px">
+    <thead>
+        <tr class='row'>
+            <th class="col-md-4">
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th class="col-md-4">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.Credits)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.NumberEnrolled)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.CourseCapacity)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+            {
+            <tr class='row'>
+                <th class="col-md-4">@course.Title</th>
+                <th class="col-md-4">@course.Description</th>
+                <th class="col-md-1">@course.Credits</th>
+                <th class="col-md-1">@course.NumberEnrolled</th>
+                <th class="col-md-1">@course.CourseCapacity</th>
+            </tr>
+        }
+
+    </tbody>
+</table>

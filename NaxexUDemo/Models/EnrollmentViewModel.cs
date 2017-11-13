@@ -14,7 +14,7 @@ namespace NaxexUDemo.Models
             Title = course.Title;
             Credits = course.Credits;
             NumberEnrolled = course.NumberEnrolled;
-            CourceCapacity = course.CourceCapacity;
+            CourseCapacity = course.CourseCapacity;
         }
 
         public string Title { get; set; }
@@ -23,6 +23,6 @@ namespace NaxexUDemo.Models
 
         public int NumberEnrolled { get; set; }
 
-        public int CourceCapacity { get; set; }
+        public int CourseCapacity { get; set; }
     }
 }

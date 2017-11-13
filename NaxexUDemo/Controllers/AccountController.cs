@@ -58,7 +58,7 @@ namespace NaxexUDemo.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
-            {
+            {                
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
@@ -222,9 +222,15 @@ namespace NaxexUDemo.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
-                var roleAssignment = await _userManager.AddToRoleAsync(user, "Student");
-                if (result.Succeeded && roleAssignment.Succeeded)
+               
+                if (result.Succeeded )
                 {
+                    var roleAssignment = await _userManager.AddToRoleAsync(user, "Student");
+                    if (!roleAssignment.Succeeded)
+                    {
+                        AddErrors(result);
+                        return View(model);
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
