@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NaxexUDemo", "NaxexUDemo\NaxexUDemo.csproj", "{0644E301-4384-4C2C-A54F-C843B26D81E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{A9581F5D-9B3A-4BD0-A192-BE14FBDFAFAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0644E301-4384-4C2C-A54F-C843B26D81E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0644E301-4384-4C2C-A54F-C843B26D81E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0644E301-4384-4C2C-A54F-C843B26D81E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9581F5D-9B3A-4BD0-A192-BE14FBDFAFAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9581F5D-9B3A-4BD0-A192-BE14FBDFAFAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9581F5D-9B3A-4BD0-A192-BE14FBDFAFAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9581F5D-9B3A-4BD0-A192-BE14FBDFAFAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
